@@ -57,6 +57,8 @@ class TestFollowAPI:
         num_of_follows = (
             Follow.objects.filter(following__username=user.username).count()
         )
+        print(test_data)
+
         assert len(test_data) == num_of_follows, (
             'Проверьте, что GET-запрос авторизованного пользователя к '
             f'`{self.url}` возвращает только данные о подписках '
