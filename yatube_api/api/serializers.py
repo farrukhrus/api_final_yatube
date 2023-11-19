@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.generics import get_object_or_404
 
 from posts.models import Post, Group, Comment, Follow, User
 
@@ -49,8 +48,7 @@ class FollowSerializer(serializers.ModelSerializer):
             queryset=Follow.objects.all(), fields=('user', 'following'))]
 
     def validate_following(self, data):
-        user = get_object_or_404(User, username=data['following'].username)
-        if user == self.context['request'].user:
+        if self.context['request'].user == data:
             raise serializers.ValidationError(
                 'Вы не можете подписаться на себя')
         return data
